@@ -11,6 +11,7 @@ export class Client {
 
 export class Economy {
     balance(): Promise<{user:User,balances:UserBalances}>;
+    changes(currency?: "coins"|"gems",limit?: number, offset?: number): Promise<{userId:string, username: string, changes: Change[]}>;
 }
 
 export class User {
@@ -21,6 +22,12 @@ export class User {
 export class UserBalances {
     get coins():number;
     get gems():number;
+}
+export class Change {
+    get date(): Date;
+    get source(): string;
+    get description(): string;
+    get delta(): number;
 }
 
 export class ApiRequest {
