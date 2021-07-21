@@ -4,5 +4,6 @@ module.exports = {
     "ApiRequest": require("./ApiRequest"),
     "User": require("./Structures/User"),
     "UserBalances": require("./Structures/UserBalances"),
-    "Change": require("./Structures/Change")
+    "Change": require("./Structures/Change"),
+    "Transfer": require("./Structures/Transfer")
 }

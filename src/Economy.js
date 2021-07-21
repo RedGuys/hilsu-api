@@ -35,6 +35,18 @@ class Economy {
         }
         return {userId: response.userId, username: response.username, transfers};
     }
+
+    async transfer(target, amount, description = "", currency = "coins") {
+        let params = {currency, amount};
+        if(description !== "") params.description = description;
+        if(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(target)) {
+            params.targetId = target;
+        } else {
+            params.targetName = target;
+        }
+        let response = await ApiRequest.requestPOST(this._path + "transfer",{} , JSON.stringify(params),{token: this._client._token});
+        return {currency: response.currency, senderId: response.senderId, senderName: response.senderName, targetId: response.targetId, targetName: response.targetName, balance: response.balance};
+    }
 }
 
 module.exports = Economy;

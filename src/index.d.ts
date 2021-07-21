@@ -13,6 +13,8 @@ export class Economy {
     balance(): Promise<{user:User,balances:UserBalances}>;
     changes(currency?: "coins"|"gems",limit?: number, offset?: number): Promise<{userId:string, username: string, changes: Change[]}>;
     transfers(currency?: "coins"|"gems",limit?: number, offset?: number): Promise<{userId:string, username: string, transfers: Transfer[]}>;
+
+    transfer(target: string, amount: number, description?: string, currency?: "coins"|"gems"): Promise<{currency: string, senderId: string, senderName: string, targetId: string, targetName: string, balance: number}>;
 }
 
 export class User {
