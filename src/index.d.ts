@@ -14,6 +14,7 @@ export class Economy {
     changes(currency?: "coins"|"gems",limit?: number, offset?: number): Promise<{userId: string, username: string, changes: Change[]}>;
     transfers(currency?: "coins",limit?: number, offset?: number): Promise<{userId: string, username: string, transfers: Transfer[]}>;
     transfersCount(currency?: "coins"): Promise<{userId: string, username: string, count: number}>;
+    changesCount(currency?: "coins"|"gems"): Promise<{userId: string, username: string, count: number}>;
 
     transfer(target: string, amount: number, description?: string, currency?: "coins"|"gems"): Promise<{currency: string, senderId: string, senderName: string, targetId: string, targetName: string, balance: number}>;
 }
