@@ -36,6 +36,11 @@ class Economy {
         return {userId: response.userId, username: response.username, transfers};
     }
 
+    async transfersCount(currency = "coins") {
+        let response = await ApiRequest.requestGET(this._path + "transfersCount", {currency},{token: this._client._token});
+        return {userId: response.userId, username: response.username, count: response.count};
+    }
+
     async transfer(target, amount, description = "", currency = "coins") {
         let params = {currency, amount};
         if(description !== "") params.description = description;
