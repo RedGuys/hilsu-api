@@ -5,5 +5,6 @@ module.exports = {
     "User": require("./Structures/User"),
     "UserBalances": require("./Structures/UserBalances"),
     "Change": require("./Structures/Change"),
-    "Transfer": require("./Structures/Transfer")
+    "Transfer": require("./Structures/Transfer"),
+    "TopUser": require("./Structures/TopUser")
 }
