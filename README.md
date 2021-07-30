@@ -2,8 +2,11 @@
 Библиотека для запросов к api.hil.su
 
 - [Авторизация](#Авторизация)
+- [Экономика](#Экономика)
+ - [Получение баланса](#Получение баланса)
+ - [Список изменений баланса](#Список изменений баланса)
 
-# Авторизация
+## Авторизация
 Для начала, вам нужно получить токен, через который вы будете работать, самый простой способ:
 ```js
 let data = await HilSuApi.Client.getTokenViaPasswordAuth("login", "pass");
@@ -13,12 +16,12 @@ console.log(data.accessToken);
 ```js
 let client = new HilSuApi.Client("token");
 ```
-# Экономика
+## Экономика
 
 ```js
 let economy = client.economy;
 ```
-## Получение баланса
+### Получение баланса
 ```js
 economy.balance(): Promise<{user:User,balances:UserBalances}>;
 ```
@@ -27,7 +30,7 @@ client.economy.balance().then(data =>{
     console.log(data.user.username + " has "+data.balances.coins + " coins")
 }).catch(err => console.log(err));
 ```
-## Список изменений баланса
+### Список изменений баланса
 ```js
 economy.changes(currency?: "coins"|"gems",limit?: number, offset?: number): Promise<{userId: string, username: string, changes: Change[]}>;
 ```
