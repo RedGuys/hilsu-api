@@ -25,3 +25,12 @@ client.economy.balance().then(data =>{
     console.log(data.user.username + " has "+data.balances.coins + " coins")
 }).catch(err => console.log(err));
 ```
+## Список изменений баланса
+```js
+economy.changes(currency?: "coins"|"gems",limit?: number, offset?: number): Promise<{userId: string, username: string, changes: Change[]}>;
+```
+```js
+client.economy.changes("coins",5,0).then(data =>{
+    console.log(data.username + " has change "+data.changes[0].source + " at " + data.changes[0].date.toISOString() + " with delta " + data.changes[0].delta)
+}).catch(err => console.log(err));
+```
