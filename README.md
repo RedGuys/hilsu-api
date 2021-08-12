@@ -6,6 +6,7 @@
   - [Получение баланса](#Получение-баланса)
   - [Список изменений баланса](#Список-изменений-баланса)
   - [Список переводов](#Список-переводов)
+  - [Количество переводов](#Количество-переводов)
 
 ## Авторизация
 Для начала, вам нужно получить токен, через который вы будете работать, самый простой способ:
@@ -48,5 +49,15 @@ economy.transfers(currency?: "coins",limit?: number, offset?: number): Promise<{
 ```js
 client.economy.transfers("coins",5,0).then(data =>{
     console.log(data.username + " has transfer "+data.transfers[0].id + " at " + data.transfers[0].time.toISOString() + " with delta " + data.transfers[0].delta + " to "+data.transfers[0].peerName)
+}).catch(err => console.log(err));
+```
+
+### Количество переводов
+```js
+economy.transfersCount(currency?: "coins"): Promise<{userId: string, username: string, count: number}>;
+```
+```js
+client.economy.transfersCount("coins").then(data =>{
+    console.log(data.username + " has "+data.count+" transfers");
 }).catch(err => console.log(err));
 ```
