@@ -61,3 +61,13 @@ client.economy.transfersCount("coins").then(data =>{
     console.log(data.username + " has "+data.count+" transfers");
 }).catch(err => console.log(err));
 ```
+
+### Количество изменений баланса
+```js
+economy.changesCount(currency?: "coins"|"gems"): Promise<{userId: string, username: string, count: number}>;
+```
+```js
+client.economy.changesCount("gems").then(data =>{
+    console.log(data.username + " has "+data.count+" changes");
+}).catch(err => console.log(err));
+```
