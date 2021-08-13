@@ -72,3 +72,13 @@ client.economy.changesCount("gems").then(data =>{
     console.log(data.username + " has "+data.count+" changes");
 }).catch(err => console.log(err));
 ```
+
+### Топ по балансам
+```js
+economy.top(currency?: "coins"|"gems", limit?: number): Promise<{users: TopUser[]}>;
+```
+```js
+client.economy.top("gems",1).then(data =>{
+    console.log(data.users[0].num+") "+data.users[0].user.username+": "+data.users[0].balance);
+}).catch(err => console.log(err));
+```
