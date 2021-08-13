@@ -8,7 +8,7 @@
   - [Список переводов](#Список-переводов)
   - [Количество переводов](#Количество-переводов)
   - [Количество изменений баланса](#Количество-изменений-баланса)
-  - [Топ-по-балансам](#Топ-по-балансам)
+  - [Топ по балансам](#Топ-по-балансам)
 
 ## Авторизация
 Для начала, вам нужно получить токен, через который вы будете работать, самый простой способ:
@@ -81,5 +81,15 @@ economy.top(currency?: "coins"|"gems", limit?: number): Promise<{users: TopUser[
 ```js
 client.economy.top("gems",1).then(data =>{
     console.log(data.users[0].num+") "+data.users[0].user.username+": "+data.users[0].balance);
+}).catch(err => console.log(err));
+```
+
+### Перевод средств
+```js
+economy.transfer(target: string, amount: number, description?: string, currency?: "coins"|"gems"): Promise<{currency: string, senderId: string, senderName: string, targetId: string, targetName: string, balance: number}>;
+```
+```js
+client.economy.transfer("MailGik",1,"What the fox say?","gems").then(data =>{
+    console.log(data.senderName + " send to " + data.targetName + " 1 " + data.currency + " and have now " + data.balance + " " + data.currency);
 }).catch(err => console.log(err));
 ```
