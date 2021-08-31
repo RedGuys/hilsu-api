@@ -28,7 +28,7 @@ let economy = client.economy;
 ```
 ### Получение баланса
 ```js
-economy.balance(): Promise<{user:User,balances:UserBalances}>;
+economy.balance(): Promise<{user:ChatUser,balances:UserBalances}>;
 ```
 ```js
 client.economy.balance().then(data =>{

@@ -6,5 +6,15 @@ module.exports = {
     "UserBalances": require("./Structures/UserBalances"),
     "Change": require("./Structures/Change"),
     "Transfer": require("./Structures/Transfer"),
-    "TopUser": require("./Structures/TopUser")
+    "TopUser": require("./Structures/TopUser"),
+    "ChatClient": require("./chat/ChatClient"),
+    "ChatAttachment": require("./chat/Structures/ChatAttachment"),
+    "ChatMessage": require("./chat/Structures/ChatMessage"),
+    "ChatUser": require("./chat/Structures/ChatUser"),
+    "ChatAttachmentMeta": require("./chat/Structures/ChatAttachmentMeta"),
+    "ChatAttachmentType": require("./chat/Structures/ChatAttachmentType"),
+    "ChatExternalUser": require("./chat/Structures/ChatExternalUser"),
+    "ChatSticker": require("./chat/Structures/ChatSticker"),
+    "ChatStickerMetadata": require("./chat/Structures/ChatStickerMetadata"),
+    "Rank": require("./Structures/Rank")
 }

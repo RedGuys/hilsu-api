@@ -1,3 +1,4 @@
+//Clients
 export class Client {
     constructor(token: String);
 
@@ -9,6 +10,14 @@ export class Client {
     static getTokenViaPasswordAuth(login: String, password: String): Promise<{ accessToken:String, expires: number }>;
 }
 
+export class ChatClient {
+    constructor(chat: "talk" | "market" | "support", token?: string);
+
+    on(event: "open"|"keepAlive", listener: () => void);
+    on(event: "messageDeleted"|"messageEdited"|"messageReceived",listener: (message:ChatMessage) => void);
+}
+
+//API classes
 export class Economy {
     balance(): Promise<{user:User,balances:UserBalances}>;
     changes(currency?: "coins"|"gems",limit?: number, offset?: number): Promise<{userId: string, username: string, changes: Change[]}>;
@@ -20,20 +29,24 @@ export class Economy {
     transfer(target: string, amount: number, description?: string, currency?: "coins"|"gems"): Promise<{currency: string, senderId: string, senderName: string, targetId: string, targetName: string, balance: number}>;
 }
 
+//Structures
 export class User {
     get id():number;
     get uuid():string;
     get username():string;
 }
+
 export class TopUser {
     get num():number;
     get user():User;
     get balance():number;
 }
+
 export class UserBalances {
     get coins():number;
     get gems():number;
 }
+
 export class Change {
     get date(): Date;
     get source(): string;
@@ -50,6 +63,107 @@ export class Transfer {
     get time(): Date;
 }
 
+export class ChatMessage {
+    get id():number;
+    get telegramId():number|undefined;
+    get sender():ChatUser;
+    get replyTo():number|undefined;
+    get replyToMessage():ChatUser|undefined;
+    get text():string;
+    get forwardedFrom():ChatUser|undefined;
+    get attachments():ChatAttachment[];
+    get createdAt():number;
+    get editedAt():number|undefined;
+    get isDeleted():boolean|undefined;
+}
+
+declare class ChatAttachment {
+    get id(): number;
+
+    get kind(): ChatAttachmentType;
+
+    get primaryId(): number | undefined;
+
+    get downloadToken(): string;
+
+    get sha256(): string | undefined;
+
+    get sticker(): ChatSticker | undefined;
+
+    get meta(): ChatAttachmentMeta;
+
+    saveTo(path: string):Promise<void>;
+}
+
+
+declare class ChatUser {
+    get type():String;
+    get id():number|undefined;
+    get uuid():String|undefined;
+    get username():String|undefined;
+    get rank():Rank|undefined;
+    get isMe():boolean|undefined;
+    get external():ChatExternalUser|undefined;
+    get firstName():String|undefined;
+    get lastName():String|undefined;
+    get name():String|undefined;
+    get app():String|undefined;
+    get appName():String|undefined;
+    get externalId():String|undefined;
+}
+
+export class ChatExternalUser {
+    get app():string;
+    get appName():string;
+    get externalId():string;
+    get name():string;
+}
+
+export class Rank {
+    get code():string;
+    get title():string;
+}
+
+export class ChatAttachmentType {
+    get kind():string;
+    get isThumbnail():boolean;
+    get thumbnailBaseKind():string|undefined;
+}
+
+export class ChatSticker {
+    get id():number;
+    get stickerSetId():number;
+    get emoji():string;
+    get metadata():ChatStickerMetadata;
+    get downloadToken():string;
+    get thumbDownloadToken():string;
+    get sha256():string|undefined;
+    get thumbSha256():string|undefined;
+}
+
+export class ChatAttachmentMeta {
+    get caption():string|undefined;
+    get fileName():string|undefined;
+    get mimeType():string|undefined;
+    get fileSize():number|undefined;
+    get width():number|undefined;
+    get height():number|undefined;
+    get performer():string|undefined;
+    get title():string|undefined;
+    get duration():number|undefined;
+}
+
+export class ChatStickerMetadata {
+    get width():number;
+    get height():number;
+    get thumbWidth():number;
+    get thumbHeight():number;
+    get isAnimated():boolean;
+    get fileSize():number;
+    get thumbSize():number;
+}
+
+//Utils
 export class ApiRequest {
     static requestGET(method, params?: object, options?: {v:"v1"|"v2",token:string}): Promise<any>;
 
