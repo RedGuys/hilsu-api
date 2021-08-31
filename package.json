@@ -16,5 +16,6 @@
   },
   "devDependencies": {
     "@types/ws": "^7.4.7"
-  }
+  },
+  "repository": "https://github.com/RedGuys/hilsu-api"
 }
