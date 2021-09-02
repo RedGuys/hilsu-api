@@ -13,8 +13,11 @@ export class Client {
 export class ChatClient {
     constructor(chat: "talk" | "market" | "support", token?: string);
 
+    sendMessage(text: string, options?:{reply:number,acknowledgement:string});
+
     on(event: "open"|"keepAlive", listener: () => void);
-    on(event: "messageDeleted"|"messageEdited"|"messageReceived",listener: (message:ChatMessage) => void);
+    on(event: "messageDeleted"|"messageEdited"|"messageReceived", listener: (message:ChatMessage) => void);
+    on(event: "messageAcknowledged", listener: (messageResult:ChatMessageResult, acknowledgement:string) => void);
 }
 
 //API classes
@@ -161,6 +164,13 @@ export class ChatStickerMetadata {
     get isAnimated():boolean;
     get fileSize():number;
     get thumbSize():number;
+}
+
+export class ChatMessageResult {
+    get type():string;
+    get id():number;
+    get muter():string;
+    get expiresAt():number;
 }
 
 //Utils

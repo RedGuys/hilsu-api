@@ -1,12 +1,14 @@
 const WebSocket = require("ws");
 const EventEmitter = require("events");
 const Message = require("./Structures/ChatMessage");
+const MessageResult = require("./Structures/ChatMessageResult");
 
 class ChatClient extends EventEmitter {
 
     _url;
     _ws = WebSocket.prototype;
     _chat;
+    _rateLimit = false;
 
     constructor(chat = "talk",token = "") {
         super();
@@ -22,6 +24,22 @@ class ChatClient extends EventEmitter {
         this._ws.on("message",(data) => {this._workMessage(client,data)});
     }
 
+    sendMessage(text,options = {reply:undefined,acknowledgement:undefined}) {
+        if(this._rateLimit) {
+            this.emit("messageAcknowledged",new MessageResult({type:"ratelimit"}),options.acknowledgement);
+            return;
+        }
+        this._rateLimit = true;
+        setTimeout(()=>this._rateLimit = false,10000);
+        let mes = {};
+        mes.type = "sendMessage";
+        mes.text = text;
+        if(options.reply)
+            mes.replyTo = options.reply;
+        if(options.acknowledgement)
+            mes.acknowledgement = options.acknowledgement;
+        this._ws.send(JSON.stringify(mes));
+    }
 
     _workMessage(client, data) {
         let obj = JSON.parse(data);
@@ -42,6 +60,10 @@ class ChatClient extends EventEmitter {
                     break
                 }
                 client.emit("messageReceived",message);
+                break;
+            }
+            case "messageAcknowledged": {
+                client.emit("messageAcknowledged",new MessageResult(obj.result),obj.acknowledgement);
                 break;
             }
         }
