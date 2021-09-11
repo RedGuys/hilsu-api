@@ -13,7 +13,7 @@ export class Client {
 export class ChatClient {
     constructor(chat: "talk" | "market" | "support", token?: string);
 
-    sendMessage(text: string, options?:{reply:number,acknowledgement:string});
+    sendMessage(text: string, options?:{reply?:number,acknowledgement?:string});
 
     on(event: "open"|"keepAlive", listener: () => void);
     on(event: "messageDeleted"|"messageEdited"|"messageReceived", listener: (message:ChatMessage) => void);

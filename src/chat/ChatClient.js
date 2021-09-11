@@ -59,6 +59,7 @@ class ChatClient extends EventEmitter {
                     client.emit("messageEdited",message);
                     break
                 }
+                if(message.sender.isMe) return;
                 client.emit("messageReceived",message);
                 break;
             }
