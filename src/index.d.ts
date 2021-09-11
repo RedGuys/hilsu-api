@@ -16,7 +16,7 @@ export class ChatClient {
     sendMessage(text: string, options?:{reply?:number,acknowledgement?:string});
 
     on(event: "open"|"keepAlive", listener: () => void);
-    on(event: "messageDeleted"|"messageEdited"|"messageReceived", listener: (message:ChatMessage) => void);
+    on(event: "messageDeleted"|"messageEdited"|"messageReceived"|"messageSelfReceived", listener: (message:ChatMessage) => void);
     on(event: "messageAcknowledged", listener: (messageResult:ChatMessageResult, acknowledgement:string) => void);
 }
 
