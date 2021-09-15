@@ -24,6 +24,10 @@ class ChatClient extends EventEmitter {
         this._ws.on("message",(data) => {this._workMessage(client,data)});
     }
 
+    get chat() {
+        return this._chat;
+    }
+
     sendMessage(text,options = {reply:undefined,acknowledgement:undefined}) {
         if(this._rateLimit) {
             this.emit("messageAcknowledged",new MessageResult({type:"ratelimit"}),options.acknowledgement);
@@ -50,7 +54,7 @@ class ChatClient extends EventEmitter {
                 break;
             }
             case "messageReceived": {
-                let message = new Message(obj.message, this._chat);
+                let message = new Message(obj.message, client);
                 if(message.isDeleted) {
                     client.emit("messageDeleted",message);
                     break;

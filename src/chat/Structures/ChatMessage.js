@@ -13,13 +13,14 @@ class ChatMessage {
     _createdAt;
     _editedAt;
     _isDeleted;
+    _client;
 
-    constructor(data, chat) {
+    constructor(data, client) {
         this._id = data.id;
         this._telegramId = data.telegramId;
         this._sender = new ChatUser(data.sender);
         this._replyTo = data.replyTo;
-        this._replyToMessage = data.replyToMessage !== undefined ? new ChatMessage(data.replyToMessage, chat):undefined;
+        this._replyToMessage = data.replyToMessage !== undefined ? new ChatMessage(data.replyToMessage, client):undefined;
         this._text = data.text;
         this._forwardedFrom = data.forwardedFrom !== undefined ? new ChatUser(data.forwardedFrom):undefined;
         this._attachments = [];
@@ -29,6 +30,7 @@ class ChatMessage {
         this._createdAt = data.createdAt;
         this._editedAt = data.editedAt;
         this._isDeleted = data.isDeleted;
+        this._client = client;
     }
 
     get id() {
@@ -73,6 +75,11 @@ class ChatMessage {
 
     get isDeleted() {
         return this._isDeleted;
+    }
+
+    reply(text,options = {acknowledgement:undefined}) {
+        options.reply = this.id;
+        this._client.sendMessage(text,options);
     }
 }
 

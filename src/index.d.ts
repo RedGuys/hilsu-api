@@ -67,17 +67,29 @@ export class Transfer {
 }
 
 export class ChatMessage {
-    get id():number;
-    get telegramId():number|undefined;
-    get sender():ChatUser;
-    get replyTo():number|undefined;
-    get replyToMessage():ChatUser|undefined;
-    get text():string;
-    get forwardedFrom():ChatUser|undefined;
-    get attachments():ChatAttachment[];
-    get createdAt():number;
-    get editedAt():number|undefined;
-    get isDeleted():boolean|undefined;
+    get id(): number;
+
+    get telegramId(): number | undefined;
+
+    get sender(): ChatUser;
+
+    get replyTo(): number | undefined;
+
+    get replyToMessage(): ChatUser | undefined;
+
+    get text(): string;
+
+    get forwardedFrom(): ChatUser | undefined;
+
+    get attachments(): ChatAttachment[];
+
+    get createdAt(): number;
+
+    get editedAt(): number | undefined;
+
+    get isDeleted(): boolean | undefined;
+
+    reply(text: string, options: { acknowledgement?: string });
 }
 
 declare class ChatAttachment {

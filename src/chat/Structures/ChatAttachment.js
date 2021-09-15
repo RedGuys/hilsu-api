@@ -13,9 +13,9 @@ class ChatAttachment {
     _sha256;
     _sticker;
     _meta;
-    _chat;
+    _client;
 
-    constructor(data, chat) {
+    constructor(data, client) {
         this._id = data.id;
         this._kind = new ChatAttachmentType(data.kind);
         this._primaryId = data.primaryId;
@@ -23,7 +23,7 @@ class ChatAttachment {
         this._sha256 = data.sha256;
         this._sticker = data.sticker !== undefined ? new ChatSticker(data.sticker):undefined;
         this._meta = new ChatAttachmentMeta(data.meta);
-        this._chat = chat;
+        this._chat = client;
     }
 
     get id() {
@@ -55,7 +55,7 @@ class ChatAttachment {
     }
 
     async saveTo(path) {
-        let url = 'https://api.hil.su/v2/chat/' + this._chat + '/file?t='+this._downloadToken;
+        let url = 'https://api.hil.su/v2/chat/' + this._client.chat + '/file?t='+this._downloadToken;
         const writer = Fs.createWriteStream(path);
 
         const response = await Axios({
