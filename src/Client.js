@@ -1,5 +1,6 @@
 const ApiRequest = require("./ApiRequest");
 const Economy = require("./Economy");
+const GetTokenResponse = require("./responses/GetTokenResponse");
 
 class Client {
     _token = null;
@@ -21,7 +22,7 @@ class Client {
     }
 
     static async getTokenViaPasswordAuth(username, password) {
-        return await ApiRequest.requestPOST("auth/account/login/password", {}, JSON.stringify({username, password}));
+        return new GetTokenResponse(await ApiRequest.requestPOST("auth/account/login/password", {}, JSON.stringify({username, password})));
     }
 }
 

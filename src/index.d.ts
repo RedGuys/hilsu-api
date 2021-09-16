@@ -7,7 +7,7 @@ export class Client {
 
     get economy(): Economy;
 
-    static getTokenViaPasswordAuth(login: String, password: String): Promise<{ accessToken:String, expires: number }>;
+    static getTokenViaPasswordAuth(login: String, password: String): Promise<GetTokenResponse>;
 }
 
 export class ChatClient {
@@ -18,6 +18,12 @@ export class ChatClient {
     on(event: "open"|"keepAlive", listener: () => void);
     on(event: "messageDeleted"|"messageEdited"|"messageReceived"|"messageSelfReceived", listener: (message:ChatMessage) => void);
     on(event: "messageAcknowledged", listener: (messageResult:ChatMessageResult, acknowledgement:string) => void);
+}
+
+//Responses
+export class GetTokenResponse {
+    get accessToken(): String;
+    get expires(): number;
 }
 
 //API classes
