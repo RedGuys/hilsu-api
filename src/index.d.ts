@@ -26,10 +26,16 @@ export class GetTokenResponse {
     get expires(): number;
 }
 
+export class ChangesResponse {
+    get userId(): string;
+    get username(): string;
+    get changes(): Change[];
+}
+
 //API classes
 export class Economy {
     balance(): Promise<{user:User,balances:UserBalances}>;
-    changes(currency?: "coins"|"gems",limit?: number, offset?: number): Promise<{userId: string, username: string, changes: Change[]}>;
+    changes(currency?: "coins"|"gems",limit?: number, offset?: number): Promise<ChangesResponse>;
     transfers(currency?: "coins",limit?: number, offset?: number): Promise<{userId: string, username: string, transfers: Transfer[]}>;
     transfersCount(currency?: "coins"): Promise<{userId: string, username: string, count: number}>;
     changesCount(currency?: "coins"|"gems"): Promise<{userId: string, username: string, count: number}>;
