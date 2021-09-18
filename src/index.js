@@ -17,5 +17,7 @@ module.exports = {
     "ChatSticker": require("./chat/Structures/ChatSticker"),
     "ChatStickerMetadata": require("./chat/Structures/ChatStickerMetadata"),
     "Rank": require("./Structures/Rank"),
-    "GetTokenResponse": require("./responses/GetTokenResponse")
+    "GetTokenResponse": require("./responses/GetTokenResponse"),
+    "ChangesResponse": require("./responses/ChangesResponse"),
+    "BalanceResponse": require("./responses/BalanceResponse")
 }

@@ -5,6 +5,7 @@ const Change = require("./Structures/Change");
 const Transfer = require("./Structures/Transfer");
 const TopUser = require("./Structures/TopUser");
 const ChangesResponse = require("./responses/ChangesResponse");
+const BalanceResponse = require("./responses/BalanceResponse");
 
 class Economy {
 
@@ -17,7 +18,7 @@ class Economy {
 
     async balance() {
         let response = await ApiRequest.requestGET(this._path + "balance", {}, {token: this._client._token});
-        return {user:new User(response.user),balances:new UserBalances(response.balances)}
+        return new BalanceResponse(response);
     }
 
     async changes(currency = "coins",limit = 10, offset=0) {
