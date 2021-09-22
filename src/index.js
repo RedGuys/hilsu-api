@@ -1,3 +1,5 @@
+import {TransfersResponse} from "./index";
+
 module.exports = {
     "Client": require("./Client"),
     "Economy": require("./Economy"),
@@ -19,5 +21,6 @@ module.exports = {
     "Rank": require("./Structures/Rank"),
     "GetTokenResponse": require("./responses/GetTokenResponse"),
     "ChangesResponse": require("./responses/ChangesResponse"),
-    "BalanceResponse": require("./responses/BalanceResponse")
+    "BalanceResponse": require("./responses/BalanceResponse"),
+    "TransfersResponse": require("./responses/TransfersResponse")
 }

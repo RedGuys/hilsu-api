@@ -32,6 +32,12 @@ export class ChangesResponse {
     get changes(): Change[];
 }
 
+export class TransfersResponse {
+    get userId(): string;
+    get username(): string;
+    get transfers(): Transfer[];
+}
+
 export class BalanceRequest {
     get user(): User;
     get balance(): UserBalances;
@@ -41,7 +47,7 @@ export class BalanceRequest {
 export class Economy {
     balance(): Promise<BalanceRequest>;
     changes(currency?: "coins"|"gems",limit?: number, offset?: number): Promise<ChangesResponse>;
-    transfers(currency?: "coins",limit?: number, offset?: number): Promise<{userId: string, username: string, transfers: Transfer[]}>;
+    transfers(currency?: "coins",limit?: number, offset?: number): Promise<TransfersResponse>;
     transfersCount(currency?: "coins"): Promise<{userId: string, username: string, count: number}>;
     changesCount(currency?: "coins"|"gems"): Promise<{userId: string, username: string, count: number}>;
     top(currency?: "coins"|"gems", limit?: number): Promise<{users: TopUser[]}>;
