@@ -1,9 +1,9 @@
 const Change = require("../Structures/Change");
 
 class ChangesResponse {
-    private _userId;
-    private _username;
-    private _changes;
+    _userId;
+    _username;
+    _changes;
 
     constructor(data) {
         this._userId = data.userId;

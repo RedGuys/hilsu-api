@@ -1,5 +1,3 @@
-import {TransfersResponse} from "./index";
-
 module.exports = {
     "Client": require("./Client"),
     "Economy": require("./Economy"),
@@ -22,5 +20,6 @@ module.exports = {
     "GetTokenResponse": require("./responses/GetTokenResponse"),
     "ChangesResponse": require("./responses/ChangesResponse"),
     "BalanceResponse": require("./responses/BalanceResponse"),
-    "TransfersResponse": require("./responses/TransfersResponse")
+    "TransfersResponse": require("./responses/TransfersResponse"),
+    "TransfersCountResponse": require("./responses/TransfersCountResponse")
 }

@@ -1,9 +1,9 @@
 const Transfer = require("../Structures/Transfer");
 
 class TransfersResponse {
-    private _userId;
-    private _username;
-    private _transfers;
+    _userId;
+    _username;
+    _transfers;
 
     constructor(data) {
         this._userId = data.userId;
