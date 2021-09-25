@@ -21,5 +21,6 @@ module.exports = {
     "ChangesResponse": require("./responses/ChangesResponse"),
     "BalanceResponse": require("./responses/BalanceResponse"),
     "TransfersResponse": require("./responses/TransfersResponse"),
-    "TransfersCountResponse": require("./responses/TransfersCountResponse")
+    "TransfersCountResponse": require("./responses/TransfersCountResponse"),
+    "ChangesCountResponse": require("./responses/ChangesCountResponse")
 }

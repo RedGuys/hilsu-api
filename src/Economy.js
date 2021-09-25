@@ -1,3 +1,5 @@
+import {TransfersResponse} from "./index";
+
 const ApiRequest = require("./ApiRequest");
 const User = require("./Structures/User");
 const UserBalances = require("./Structures/UserBalances")
@@ -6,6 +8,8 @@ const Transfer = require("./Structures/Transfer");
 const TopUser = require("./Structures/TopUser");
 const ChangesResponse = require("./responses/ChangesResponse");
 const BalanceResponse = require("./responses/BalanceResponse");
+const TransfersCountResponse = require("./responses/TransfersCountResponse");
+const ChangesCountResponse = require("./responses/ChangesCountResponse");
 
 class Economy {
 
@@ -28,21 +32,17 @@ class Economy {
 
     async transfers(currency = "coins",limit = 10, offset=0) {
         let response = await ApiRequest.requestGET(this._path + "transfers", {currency,limit,offset},{token: this._client._token});
-        let transfers = [];
-        for (let transfer of response.transfers) {
-            transfers.push(new Transfer(transfer));
-        }
-        return {userId: response.userId, username: response.username, transfers};
+        return new TransfersResponse(response);
     }
 
     async transfersCount(currency = "coins") {
         let response = await ApiRequest.requestGET(this._path + "transfersCount", {currency},{token: this._client._token});
-        return {userId: response.userId, username: response.username, count: response.count};
+        return new TransfersCountResponse(response);
     }
 
     async changesCount(currency = "coins") {
         let response = await ApiRequest.requestGET(this._path + "changesCount", {currency},{token: this._client._token});
-        return {userId: response.userId, username: response.username, count: response.count};
+        return new ChangesCountResponse(response);
     }
 
     async top(currency= "", limit = 100) {

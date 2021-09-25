@@ -49,13 +49,19 @@ export class TransfersCountResponse {
     get count():number;
 }
 
+export class ChangesCountResponse {
+    get userId():string;
+    get username():string;
+    get count():number;
+}
+
 //API classes
 export class Economy {
     balance(): Promise<BalanceResponse>;
     changes(currency?: "coins"|"gems",limit?: number, offset?: number): Promise<ChangesResponse>;
     transfers(currency?: "coins",limit?: number, offset?: number): Promise<TransfersResponse>;
     transfersCount(currency?: "coins"): Promise<TransfersCountResponse>;
-    changesCount(currency?: "coins"|"gems"): Promise<{userId: string, username: string, count: number}>;
+    changesCount(currency?: "coins"|"gems"): Promise<ChangesCountResponse>;
     top(currency?: "coins"|"gems", limit?: number): Promise<{users: TopUser[]}>;
 
     transfer(target: string, amount: number, description?: string, currency?: "coins"|"gems"): Promise<{currency: string, senderId: string, senderName: string, targetId: string, targetName: string, balance: number}>;
