@@ -1,15 +1,10 @@
-import {TransfersResponse} from "./index";
-
 const ApiRequest = require("./ApiRequest");
-const User = require("./Structures/User");
-const UserBalances = require("./Structures/UserBalances")
-const Change = require("./Structures/Change");
-const Transfer = require("./Structures/Transfer");
-const TopUser = require("./Structures/TopUser");
 const ChangesResponse = require("./responses/ChangesResponse");
 const BalanceResponse = require("./responses/BalanceResponse");
 const TransfersCountResponse = require("./responses/TransfersCountResponse");
 const ChangesCountResponse = require("./responses/ChangesCountResponse");
+const TopResponse = require("./responses/TopResponse");
+const TransfersResponse = require("./responses/TransfersResponse");
 
 class Economy {
 
@@ -48,11 +43,7 @@ class Economy {
     async top(currency= "", limit = 100) {
         if(limit>100) limit=100;
         let response = await ApiRequest.requestGET(this._path + "top", {currency, limit},{token: this._client._token});
-        let users = [];
-        for (let user of response.users) {
-            users.push(new TopUser(user));
-        }
-        return {users};
+        return new TopResponse(response);
     }
 
     async transfer(target, amount, description = "", currency = "coins") {
