@@ -5,6 +5,7 @@ const TransfersCountResponse = require("./responses/TransfersCountResponse");
 const ChangesCountResponse = require("./responses/ChangesCountResponse");
 const TopResponse = require("./responses/TopResponse");
 const TransfersResponse = require("./responses/TransfersResponse");
+const TransferResponse = require("./responses/TransferResponse");
 
 class Economy {
 
@@ -55,7 +56,7 @@ class Economy {
             params.targetName = target;
         }
         let response = await ApiRequest.requestPOST(this._path + "transfer",{} , JSON.stringify(params),{token: this._client._token});
-        return {currency: response.currency, senderId: response.senderId, senderName: response.senderName, targetId: response.targetId, targetName: response.targetName, balance: response.balance};
+        return new TransferResponse(response);
     }
 }
 

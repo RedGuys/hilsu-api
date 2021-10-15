@@ -69,6 +69,20 @@ export class TopResponse {
     get users(): TopUser[];
 }
 
+export class TransferResponse {
+    get currency(): "coins" | "gems";
+
+    get senderId(): string;
+
+    get senderName(): string;
+
+    get targetId(): string;
+
+    get targetName(): string;
+
+    get balance(): number;
+}
+
 //API classes
 export class Economy {
     balance(): Promise<BalanceResponse>;
@@ -83,7 +97,7 @@ export class Economy {
 
     top(currency?: "coins" | "gems", limit?: number): Promise<TopResponse>;
 
-    transfer(target: string, amount: number, description?: string, currency?: "coins" | "gems"): Promise<{ currency: string, senderId: string, senderName: string, targetId: string, targetName: string, balance: number }>;
+    transfer(target: string, amount: number, description?: string, currency?: "coins" | "gems"): Promise<TransferResponse>;
 }
 
 //Structures
