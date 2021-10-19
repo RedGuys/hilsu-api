@@ -20,6 +20,29 @@ export class ChatClient {
     on(event: "messageAcknowledged", listener: (messageResult: ChatMessageResult, acknowledgement: string) => void);
 }
 
+export class ExchangeClient {
+    constructor(token: string);
+
+    connect(): Promise<void>;
+
+    change(from: "gems" | "balance" | "money", to: "gems" | "balance" | "money", amount: number): Promise<ExchangeChange>;
+
+    get settings(): ExchangeSettings;
+
+    get pool(): ExchangePool;
+
+    get rates(): ExchangeRates;
+
+    get history(): ExchangeHistory;
+
+    on(event: "settingsUpdate", listener: (settings: ExchangeSettings) => void);
+    on(event: "poolUpdate", listener: (pool: ExchangePool) => void);
+    on(event: "ratesUpdate", listener: (rates: ExchangeRates) => void);
+    on(event: "historyUpdate", listener: (rates: ExchangeHistory) => void);
+    on(event: "ping", listener: () => void);
+    on(event: "successChange", listener: (change: ExchangeChange) => void);
+}
+
 //Responses
 export class GetTokenResponse {
     get accessToken(): String;
@@ -101,6 +124,39 @@ export class Economy {
 }
 
 //Structures
+
+export class ExchangeSettings {
+    get maxExchange(): number;
+
+    get exchangeFee(): number;
+}
+
+export class ExchangePool {
+    get balance(): number;
+
+    get gems(): number;
+
+    get money(): number;
+}
+
+export class ExchangeRates {
+    get maxExchange(): { balance: number, money: number, gems: number };
+
+    get rates(): [{ from: "gems" | "balance" | "money", to: "gems" | "balance" | "money", value: number }];
+}
+
+export class ExchangeHistory {
+    get current(): { start: string, finish: string, rates: [{ from: "gems" | "balance" | "money", to: "gems" | "balance" | "money", value: { high: number, low: number, open: number, close: number } }] }
+
+    get data(): [{ start: string, finish: string, rates: [{ from: "gems" | "balance" | "money", to: "gems" | "balance" | "money", value: { high: number, low: number, open: number, close: number } }] }];
+}
+
+export class ExchangeChange {
+    get from(): { currency: "gems" | "balance" | "money", balance: number };
+
+    get to(): { currency: "gems" | "balance" | "money", balance: number };
+}
+
 export class User {
     get id(): number;
 
@@ -311,6 +367,8 @@ export class ChatMessageResult {
 //Utils
 export class ApiRequest {
     static requestGET(method, params?: object, options?: { v: "v1" | "v2", token: string }): Promise<any>;
+
+    static requestMainGET(method, params?: object, options?: { v: "v0", token: string }): Promise<any>;
 
     static requestPOST(method, params?: object, body?: any, options?: { v: "v1" | "v2", token: string }): Promise<any>;
 }

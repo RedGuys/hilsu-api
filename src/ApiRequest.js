@@ -33,6 +33,38 @@ class ApiRequest {
         });
     }
 
+    static requestMainGET(method, params = {}, options = {v:"v0",token:undefined}) {
+        if(options.v === undefined) options.v = "v0";
+        return new Promise((resolve, reject) => {
+            Axios.get("https://hil.su/api/"+options.v+"/"+method,{params,headers:{authorization:"Bearer "+options.token}})
+                .catch((err) => {
+                    if(err.response) {
+                        if(err.response.data) {
+                            reject(err.response.data);
+                            return;
+                        }
+                        reject(err.response);
+                        return;
+                    }
+                    reject(err);
+                })
+                .then((response) => {
+                    if(response === undefined) {
+                        reject(response);
+                        return;
+                    }
+                    if(response.status >=300) {
+                        reject(response);
+                        return
+                    }
+                    if(!response.data.success) {
+                        reject(response);
+                    }
+                    resolve(response.data.response);
+                });
+        });
+    }
+
     static requestPOST(method, params = {}, body = "", options = {v:"v2",token:undefined}) {
         if(options.v === undefined) options.v = "v2";
         return new Promise((resolve, reject) => {
