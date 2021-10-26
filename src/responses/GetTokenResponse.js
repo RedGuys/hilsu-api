@@ -15,3 +15,5 @@ class GetTokenResponse {
         return this._expires;
     }
 }
+
+module.exports = GetTokenResponse;
