@@ -2,9 +2,9 @@ class GetTokenResponse {
     _accessToken;
     _expires;
 
-    constructor(accessToken, expires) {
-        this._accessToken = accessToken;
-        this._expires = expires;
+    constructor(data) {
+        this._accessToken = data.accessToken;
+        this._expires = data.expires;
     }
 
     get accessToken() {
