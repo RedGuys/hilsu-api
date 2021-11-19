@@ -7,7 +7,7 @@ class BalanceResponse {
 
     constructor(data) {
         this._user = new User(data.user);
-        this._balance = new Balance(data.balance);
+        this._balance = new Balance(data.balances);
     }
 
     get user() {
