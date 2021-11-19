@@ -7,6 +7,8 @@ export class Client {
 
     get economy(): Economy;
 
+    get auction(): Auction;
+
     static getTokenViaPasswordAuth(login: String, password: String): Promise<GetTokenResponse>;
 }
 
@@ -106,6 +108,40 @@ export class TransferResponse {
     get balance(): number;
 }
 
+export class ItemsResponse {
+    get auc_durations(): [AuctionDuration];
+
+    get duration_extended(): boolean;
+
+    get forbidden_sale(): boolean;
+
+    get infinite(): boolean;
+
+    get items(): [Item];
+
+    get reset_auc_duration(): string;
+
+    get shop_durations(): [ShopDuration];
+
+    get ws_slot_count(): number;
+}
+
+export class ListResponse {
+    get auc(): [AuctionItem];
+
+    get filters(): { filters: object };
+
+    get filters_dump(): string;
+
+    get filters_tags(): [object];
+
+    get mods(): [Mod];
+
+    get perPage(): number;
+
+    get totalPageCount(): number;
+}
+
 //API classes
 export class Economy {
     balance(): Promise<BalanceResponse>;
@@ -121,6 +157,12 @@ export class Economy {
     top(currency?: "coins" | "gems", limit?: number): Promise<TopResponse>;
 
     transfer(target: string, amount: number, description?: string, currency?: "coins" | "gems"): Promise<TransferResponse>;
+}
+
+export class Auction {
+    items(): Promise<ItemsResponse>;
+
+    list(page?: number, order?: "expires_at_asc" | "buyout_price_asc" | "top_bid_asc" | "expires_at_desc" | "buyout_price_desc" | "top_bid_desc"): Promise<ListResponse>;
 }
 
 //Structures
@@ -363,6 +405,155 @@ export class ChatMessageResult {
 
     get expiresAt(): number;
 }
+
+export class AuctionDuration {
+    get value(): number;
+
+    get format(): string;
+
+    get reset(): boolean;
+}
+
+export class Item {
+    get id(): number;
+
+    get item_hooks(): [string];
+
+    get item_name(): string;
+
+    get item_name_text(): string;
+
+    get item_amount(): number;
+
+    get item_sprite(): string;
+
+    get forbidden_for_sale(): boolean | undefined;
+
+    get minetip(): string;
+
+    sellShopFee(price: number, amount?: number, duration?: number, hidden?: boolean): Promise<SellFee>;
+
+    sellAucFee(buyoutPrice: number, startBid: number, amount?: number, duration?: number, hidden?: number): Promise<SellFee>;
+
+    trash(): Promise<string>;
+
+    sellShop(price: number, amount?: number, duration?: number, hidden?: boolean): Promise<number>;
+
+    sellAuc(buyoutPrice: number, startBid: number, amount?: number, duration?: number, hidden?: number): Promise<number>;
+}
+
+export class ShopDuration {
+    get value(): number;
+
+    get format(): string;
+}
+
+export class AuctionItem {
+    get id(): number;
+
+    get my(): boolean;
+
+    get user(): string;
+
+    get type(): "auc" | "shop";
+
+    get item_hooks(): [string];
+
+    get item_name(): string;
+
+    get item_name_text(): string;
+
+    get item_amount(): number;
+
+    get item_sprite(): string;
+
+    get minetip(): string;
+
+    get buyout_price(): number | undefined;
+
+    get bid_count(): string | undefined;
+
+    get sold_count(): number | undefined;
+
+    get hidden(): boolean;
+
+    get infinite(): boolean;
+
+    get extended(): boolean;
+
+    get expired(): boolean;
+
+    get expired_at(): string;
+
+    get expires_at(): string;
+
+    get shop_can_cancel(): boolean;
+
+    get shop_can_buy(): boolean;
+
+    get auc_can_buy(): boolean;
+
+    get auc_can_bid(): boolean;
+
+    get start_bid(): number | undefined;
+
+    get top_bid(): number | undefined;
+
+    get minimum_bid(): number | undefined;
+
+    get buyers(): [Buyer];
+
+    get bids(): [Bid];
+
+    get top_bidder(): false;
+
+    get auc_bid_one(): string | undefined;
+
+    get auc_price_one(): string | undefined;
+
+    buy(amount?: number): Promise<void>;
+
+    bid(bid): Promise<void>;
+
+    buyout(): Promise<void>;
+}
+
+export class Mod {
+    get chosen(): boolean;
+
+    get id(): number;
+
+    get item_count(): number;
+
+    get name(): string;
+}
+
+export class Buyer {
+    get to_user(): string;
+
+    get quantity(): number;
+
+    get price(): number;
+
+    get created_at(): string;
+}
+
+export class Bid {
+    get created_at(): string;
+
+    get user(): string;
+
+    get bid(): number;
+}
+
+export class SellFee {
+    get fee(): number;
+
+    get formattedFee(): string;
+
+    get nofee(): boolean;
+}
+
 
 //Utils
 export class ApiRequest {

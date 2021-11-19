@@ -1,6 +1,7 @@
 const ApiRequest = require("./ApiRequest");
 const Economy = require("./Economy");
 const GetTokenResponse = require("./responses/GetTokenResponse");
+const Auction = require("./Auction");
 
 class Client {
     _token = null;
@@ -19,6 +20,10 @@ class Client {
 
     get economy() {
         return new Economy(this);
+    }
+
+    get auction() {
+        return new Auction(this);
     }
 
     static async getTokenViaPasswordAuth(username, password) {
