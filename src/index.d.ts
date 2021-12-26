@@ -13,6 +13,8 @@ export class Client {
 
     chat(chat: "talk" | "market" | "support"): ChatClient;
 
+    userInfo(): Promise<UserInfoResponse>;
+
     static getTokenViaPasswordAuth(login: String, password: String): Promise<GetTokenResponse>;
 }
 
@@ -144,6 +146,14 @@ export class ListResponse {
     get perPage(): number;
 
     get totalPageCount(): number;
+}
+
+export class UserInfoResponse {
+    get first_name(): string;
+
+    get is_birthday(): boolean;
+
+    get notifications(): UserNotifications;
 }
 
 //API classes
@@ -292,7 +302,6 @@ declare class ChatAttachment {
 
     saveTo(path: string): Promise<void>;
 }
-
 
 declare class ChatUser {
     get type(): String;
@@ -558,6 +567,47 @@ export class SellFee {
     get nofee(): boolean;
 }
 
+export class UserNotifications {
+    get count():number
+
+    get perPage():number;
+
+    get notifications():[Notification];
+
+    get totalPageCount():number;
+}
+
+export class Notification {
+    get date():string;
+
+    get flags():string;
+
+    get id():number;
+
+    get text():string;
+}
+
+export class UserSkin {
+    get flat_url(): string;
+    get url(): string;
+    get url_v2(): string;
+    get cape_url(): string;
+    get avatar(): string;
+    get has_skin(): boolean;
+    get has_cape(): boolean;
+    get has_cape_cap(): boolean;
+    get has_hd(): boolean;
+    get has_one_hd(): boolean;
+}
+
+export class Stats {
+    get ref(): number;
+    get level(): number;
+    get warns(): string;
+    get exp(): number;
+    get total_exp(): number;
+}
+
 
 //Utils
 export class ApiRequest {
@@ -566,4 +616,8 @@ export class ApiRequest {
     static requestMainGET(method, params?: object, options?: { v: "v0", token: string }): Promise<any>;
 
     static requestPOST(method, params?: object, body?: any, options?: { v: "v1" | "v2", token: string }): Promise<any>;
+}
+
+export class ResponseParser {
+    static parse(prototype: any, object: Object): any;
 }

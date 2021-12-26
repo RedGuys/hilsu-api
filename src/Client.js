@@ -4,6 +4,8 @@ const GetTokenResponse = require("./responses/GetTokenResponse");
 const Auction = require("./Auction");
 const ExchangeClient = require("./exchange/ExchangeClient");
 const ChatClient = require("./chat/ChatClient");
+const ResponseParser = require("./utils/ResponseParser");
+const UserInfoResponse = require("./responses/UserInfoResponse");
 
 class Client {
     _token = null;
@@ -34,6 +36,11 @@ class Client {
 
     chat(chat = "talk") {
         return new ChatClient(chat, this._token);
+    }
+
+    async userInfo() {
+        let response = await ApiRequest.requestMainGET("user/info/index", {},{token: this._token});
+        return ResponseParser.parse(UserInfoResponse.prototype,response);
     }
 
     static async getTokenViaPasswordAuth(username, password) {

@@ -16,12 +16,12 @@ module.exports = {
     ChatExternalUser: require("./chat/Structures/ChatExternalUser"), ShopDuration: require("./Structures/ShopDuration"),
     ChatSticker: require("./chat/Structures/ChatSticker"), AuctionItem: require("./Structures/AuctionItem"),
     ChatStickerMetadata: require("./chat/Structures/ChatStickerMetadata"), Bid: require("./Structures/Bid"),
-    Rank: require("./Structures/Rank"), SellFee: require("./Structures/SellFee"),
-    GetTokenResponse: require("./responses/GetTokenResponse"),
-    ChangesResponse: require("./responses/ChangesResponse"),
-    BalanceResponse: require("./responses/BalanceResponse"),
+    Rank: require("./Structures/Rank"), SellFee: require("./Structures/SellFee"), Stats: require("./Structures/Stats"),
+    GetTokenResponse: require("./responses/GetTokenResponse"), Notification: require("./Structures/Notification"),
+    ChangesResponse: require("./responses/ChangesResponse"), UserInfoResponse: require("./responses/UserInfoResponse"),
+    BalanceResponse: require("./responses/BalanceResponse"), UserSkin: require("./Structures/UserSkin"),
     TransfersResponse: require("./responses/TransfersResponse"),
     TransfersCountResponse: require("./responses/TransfersCountResponse"),
     ChangesCountResponse: require("./responses/ChangesCountResponse"),
-    TopResponse: require("./responses/TopResponse")
+    TopResponse: require("./responses/TopResponse"), UserNotifications: require("./Structures/UserNotifications"),
 }
