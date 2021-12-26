@@ -9,6 +9,10 @@ export class Client {
 
     get auction(): Auction;
 
+    get exchange(): ExchangeClient;
+
+    chat(chat: "talk" | "market" | "support"): ChatClient;
+
     static getTokenViaPasswordAuth(login: String, password: String): Promise<GetTokenResponse>;
 }
 

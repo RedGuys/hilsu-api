@@ -2,6 +2,8 @@ const ApiRequest = require("./ApiRequest");
 const Economy = require("./Economy");
 const GetTokenResponse = require("./responses/GetTokenResponse");
 const Auction = require("./Auction");
+const ExchangeClient = require("./exchange/ExchangeClient");
+const ChatClient = require("./chat/ChatClient");
 
 class Client {
     _token = null;
@@ -24,6 +26,14 @@ class Client {
 
     get auction() {
         return new Auction(this);
+    }
+
+    get exchange() {
+        return new ExchangeClient(this._token);
+    }
+
+    chat(chat = "talk") {
+        return new ChatClient(chat, this._token);
     }
 
     static async getTokenViaPasswordAuth(username, password) {
