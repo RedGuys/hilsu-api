@@ -6,6 +6,8 @@ const ChangesCountResponse = require("./responses/ChangesCountResponse");
 const TopResponse = require("./responses/TopResponse");
 const TransfersResponse = require("./responses/TransfersResponse");
 const TransferResponse = require("./responses/TransferResponse");
+const ResponseParser = require("./utils/ResponseParser");
+const TransactionsResponse = require("./responses/TransactionsResponse");
 
 class Economy {
 
@@ -39,6 +41,11 @@ class Economy {
     async changesCount(currency = "coins") {
         let response = await ApiRequest.requestGET(this._path + "changesCount", {currency},{token: this._client._token});
         return new ChangesCountResponse(response);
+    }
+
+    async transactions() {
+        let response = await ApiRequest.requestMainGET("user/economy/money/transactions", {},{token: this._client._token});
+        return ResponseParser.parse(TransactionsResponse.prototype,response);
     }
 
     async top(currency= "", limit = 100) {

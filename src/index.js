@@ -20,8 +20,9 @@ module.exports = {
     GetTokenResponse: require("./responses/GetTokenResponse"), Notification: require("./Structures/Notification"),
     ChangesResponse: require("./responses/ChangesResponse"), UserInfoResponse: require("./responses/UserInfoResponse"),
     BalanceResponse: require("./responses/BalanceResponse"), UserSkin: require("./Structures/UserSkin"),
-    TransfersResponse: require("./responses/TransfersResponse"),
+    TransfersResponse: require("./responses/TransfersResponse"), Transaction: require("./Structures/Transaction"),
     TransfersCountResponse: require("./responses/TransfersCountResponse"),
     ChangesCountResponse: require("./responses/ChangesCountResponse"),
     TopResponse: require("./responses/TopResponse"), UserNotifications: require("./Structures/UserNotifications"),
+    TransactionsResponse: require("./responses/TransactionsResponse"),
 }

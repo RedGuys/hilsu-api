@@ -156,6 +156,12 @@ export class UserInfoResponse {
     get notifications(): UserNotifications;
 }
 
+export class TransactionsResponse {
+    get transactions(): [Transaction];
+    get totalPageCount(): number;
+    get perPage(): number;
+}
+
 //API classes
 export class Economy {
     balance(): Promise<BalanceResponse>;
@@ -167,6 +173,8 @@ export class Economy {
     transfersCount(currency?: "coins"): Promise<TransfersCountResponse>;
 
     changesCount(currency?: "coins" | "gems"): Promise<ChangesCountResponse>;
+
+    transactions(): Promise<TransactionsResponse>;
 
     top(currency?: "coins" | "gems", limit?: number): Promise<TopResponse>;
 
@@ -608,6 +616,13 @@ export class Stats {
     get total_exp(): number;
 }
 
+export class Transaction {
+    get id(): number;
+    get date(): string;
+    get time(): number;
+    get change(): string;
+    get description(): string;
+}
 
 //Utils
 export class ApiRequest {
