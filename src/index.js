@@ -22,7 +22,7 @@ module.exports = {
     BalanceResponse: require("./responses/BalanceResponse"), UserSkin: require("./Structures/UserSkin"),
     TransfersResponse: require("./responses/TransfersResponse"), Transaction: require("./Structures/Transaction"),
     TransfersCountResponse: require("./responses/TransfersCountResponse"),
-    ChangesCountResponse: require("./responses/ChangesCountResponse"),
+    ChangesCountResponse: require("./responses/ChangesCountResponse"), InvitedUser: require("./Structures/InvitedUser"),
     TopResponse: require("./responses/TopResponse"), UserNotifications: require("./Structures/UserNotifications"),
     TransactionsResponse: require("./responses/TransactionsResponse"),
 }

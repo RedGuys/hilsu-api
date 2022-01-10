@@ -6,6 +6,7 @@ const ExchangeClient = require("./exchange/ExchangeClient");
 const ChatClient = require("./chat/ChatClient");
 const ResponseParser = require("./utils/ResponseParser");
 const UserInfoResponse = require("./responses/UserInfoResponse");
+const InvitedUser = require("./Structures/InvitedUser");
 
 class Client {
     _token = null;
@@ -41,6 +42,14 @@ class Client {
     async userInfo() {
         let response = await ApiRequest.requestMainGET("user/info/index", {},{token: this._token});
         return ResponseParser.parse(UserInfoResponse.prototype,response);
+    }
+
+    async invitedUsers() {
+        let invitedUsers = [];
+        for (let user of await ApiRequest.requestMainGET("user/invited", {}, {token: this._token})) {
+            invitedUsers.push(ResponseParser.parse(InvitedUser.prototype,user));
+        }
+        return invitedUsers;
     }
 
     static async getTokenViaPasswordAuth(username, password) {

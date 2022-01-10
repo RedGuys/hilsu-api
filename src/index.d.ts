@@ -14,6 +14,7 @@ export class Client {
     chat(chat: "talk" | "market" | "support"): ChatClient;
 
     userInfo(): Promise<UserInfoResponse>;
+    invitedUsers(): Promise<[InvitedUser]>;
 
     static getTokenViaPasswordAuth(login: String, password: String): Promise<GetTokenResponse>;
 }
@@ -622,6 +623,11 @@ export class Transaction {
     get time(): number;
     get change(): string;
     get description(): string;
+}
+
+export class InvitedUser {
+    get username(): string;
+    get awarded(): boolean;
 }
 
 //Utils

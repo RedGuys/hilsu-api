@@ -1,4 +1,4 @@
-const Transaction = require("../../test/out/Transaction");
+const Transaction = require("../Structures/Transaction");
 
 module.exports = class TransactionsResponse {
     _transactions = [Transaction.prototype];
