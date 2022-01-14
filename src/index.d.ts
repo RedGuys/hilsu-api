@@ -15,6 +15,7 @@ export class Client {
 
     userInfo(): Promise<UserInfoResponse>;
     invitedUsers(): Promise<[InvitedUser]>;
+    warnings(): Promise<WarningsResponse>;
 
     static getTokenViaPasswordAuth(login: String, password: String): Promise<GetTokenResponse>;
 }
@@ -161,6 +162,12 @@ export class TransactionsResponse {
     get transactions(): [Transaction];
     get totalPageCount(): number;
     get perPage(): number;
+}
+
+export class WarningsResponse {
+    get entries(): [WarnEntry];
+    get states(): [State];
+    get ban_threshold(): number;
 }
 
 //API classes
@@ -628,6 +635,44 @@ export class Transaction {
 export class InvitedUser {
     get username(): string;
     get awarded(): boolean;
+}
+
+export class WarnEntry {
+    get id(): number;
+    get ban_server(): string;
+    get date(): string;
+    get w(): string;
+    get admin(): string;
+    get rule_index(): string;
+    get rule_text(): string;
+    get soft_remove(): boolean;
+    get comment(): string;
+    get type(): Type;
+}
+export class Type {
+    get id(): number;
+    get user_id(): number;
+    get ban_rule_id(): number;
+    get ban_server_id(): number;
+    get flags(): number;
+    get comment(): string;
+    get created_at(): string;
+    get updated_at(): string;
+    get admin_id(): number;
+    get files(): Object;
+}
+export class State {
+    get ban_server(): BanServer;
+    get score_w(): string;
+    get score_o(): string;
+    get bans_price(): string;
+    get can_recalculate(): boolean;
+    get days(): string;
+    get banned(): boolean;
+}
+export class BanServer {
+    get id(): number;
+    get title(): string;
 }
 
 //Utils

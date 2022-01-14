@@ -7,6 +7,7 @@ const ChatClient = require("./chat/ChatClient");
 const ResponseParser = require("./utils/ResponseParser");
 const UserInfoResponse = require("./responses/UserInfoResponse");
 const InvitedUser = require("./Structures/InvitedUser");
+const WarningsResponse = require("./responses/WarningsResponse");
 
 class Client {
     _token = null;
@@ -50,6 +51,11 @@ class Client {
             invitedUsers.push(ResponseParser.parse(InvitedUser.prototype,user));
         }
         return invitedUsers;
+    }
+
+    async warnings() {
+        let response = await ApiRequest.requestMainGET("user/warnings", {},{token: this._token});
+        return ResponseParser.parse(WarningsResponse.prototype,response);
     }
 
     static async getTokenViaPasswordAuth(username, password) {
