@@ -8,6 +8,7 @@ const ResponseParser = require("./utils/ResponseParser");
 const UserInfoResponse = require("./responses/UserInfoResponse");
 const InvitedUser = require("./Structures/InvitedUser");
 const WarningsResponse = require("./responses/WarningsResponse");
+const ExpResponse = require("./responses/ExpResponse");
 
 class Client {
     _token = null;
@@ -56,6 +57,11 @@ class Client {
     async warnings() {
         let response = await ApiRequest.requestMainGET("user/warnings", {},{token: this._token});
         return ResponseParser.parse(WarningsResponse.prototype,response);
+    }
+
+    async exp() {
+        let response = await ApiRequest.requestMainGET("user/exp", {},{token: this._token});
+        return ResponseParser.parse(ExpResponse.prototype,response);
     }
 
     static async getTokenViaPasswordAuth(username, password) {

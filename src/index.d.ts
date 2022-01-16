@@ -14,8 +14,12 @@ export class Client {
     chat(chat: "talk" | "market" | "support"): ChatClient;
 
     userInfo(): Promise<UserInfoResponse>;
+
     invitedUsers(): Promise<[InvitedUser]>;
+
     warnings(): Promise<WarningsResponse>;
+
+    exp(): Promise<ExpResponse>;
 
     static getTokenViaPasswordAuth(login: String, password: String): Promise<GetTokenResponse>;
 }
@@ -160,14 +164,28 @@ export class UserInfoResponse {
 
 export class TransactionsResponse {
     get transactions(): [Transaction];
+
     get totalPageCount(): number;
+
     get perPage(): number;
 }
 
 export class WarningsResponse {
     get entries(): [WarnEntry];
+
     get states(): [State];
+
     get ban_threshold(): number;
+}
+
+export class ExpResponse {
+    get exp(): Exp;
+
+    get required_exp(): number;
+
+    get referrer(): Object;
+
+    get awards(): Award;
 }
 
 //API classes
@@ -584,96 +602,179 @@ export class SellFee {
 }
 
 export class UserNotifications {
-    get count():number
+    get count(): number
 
-    get perPage():number;
+    get perPage(): number;
 
-    get notifications():[Notification];
+    get notifications(): [Notification];
 
-    get totalPageCount():number;
+    get totalPageCount(): number;
 }
 
 export class Notification {
-    get date():string;
+    get date(): string;
 
-    get flags():string;
+    get flags(): string;
 
-    get id():number;
+    get id(): number;
 
-    get text():string;
+    get text(): string;
 }
 
 export class UserSkin {
     get flat_url(): string;
+
     get url(): string;
+
     get url_v2(): string;
+
     get cape_url(): string;
+
     get avatar(): string;
+
     get has_skin(): boolean;
+
     get has_cape(): boolean;
+
     get has_cape_cap(): boolean;
+
     get has_hd(): boolean;
+
     get has_one_hd(): boolean;
 }
 
 export class Stats {
     get ref(): number;
+
     get level(): number;
+
     get warns(): string;
+
     get exp(): number;
+
     get total_exp(): number;
 }
 
 export class Transaction {
     get id(): number;
+
     get date(): string;
+
     get time(): number;
+
     get change(): string;
+
     get description(): string;
 }
 
 export class InvitedUser {
     get username(): string;
+
     get awarded(): boolean;
 }
 
 export class WarnEntry {
     get id(): number;
+
     get ban_server(): string;
+
     get date(): string;
+
     get w(): string;
+
     get admin(): string;
+
     get rule_index(): string;
+
     get rule_text(): string;
+
     get soft_remove(): boolean;
+
     get comment(): string;
+
     get type(): Type;
 }
+
 export class Type {
     get id(): number;
+
     get user_id(): number;
+
     get ban_rule_id(): number;
+
     get ban_server_id(): number;
+
     get flags(): number;
+
     get comment(): string;
+
     get created_at(): string;
+
     get updated_at(): string;
+
     get admin_id(): number;
+
     get files(): Object;
 }
+
 export class State {
     get ban_server(): BanServer;
+
     get score_w(): string;
+
     get score_o(): string;
+
     get bans_price(): string;
+
     get can_recalculate(): boolean;
+
     get days(): string;
+
     get banned(): boolean;
 }
+
 export class BanServer {
     get id(): number;
+
     get title(): string;
 }
+
+export class Exp {
+    get id(): number;
+
+    get user_id(): number;
+
+    get exp(): number;
+
+    get level(): number;
+
+    get perks(): [];
+
+    get created_at(): string;
+
+    get updated_at(): string;
+}
+
+export class Award {
+    get has_billing(): boolean;
+
+    get given(): boolean;
+
+    get ranks(): [ExpRank];
+
+    get rank_period(): string;
+
+    get balance(): Object;
+}
+
+export class ExpRank {
+    get server(): string;
+
+    get title(): string;
+
+    get last(): boolean;
+}
+
 
 //Utils
 export class ApiRequest {
