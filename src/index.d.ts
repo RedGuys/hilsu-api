@@ -21,6 +21,8 @@ export class Client {
 
     exp(): Promise<ExpResponse>;
 
+    socials(): Promise<SocialsResponse>;
+
     static getTokenViaPasswordAuth(login: String, password: String): Promise<GetTokenResponse>;
 }
 
@@ -58,6 +60,12 @@ export class ExchangeClient {
 }
 
 //Responses
+export class SocialsResponse {
+    get accounts(): Accounts;
+
+    get pass(): boolean;
+}
+
 export class GetTokenResponse {
     get accessToken(): String;
 
@@ -775,6 +783,59 @@ export class ExpRank {
     get last(): boolean;
 }
 
+export class Accounts {
+    get vk(): VK;
+
+    get email(): Email;
+
+    get google(): Google;
+
+    get telegram(): Telegram;
+
+    get discord(): Discord;
+}
+
+export class VK {
+    get title(): string;
+
+    get value(): string;
+
+    get url(): string;
+}
+
+export class Email {
+    get title(): string;
+
+    get value(): string;
+
+    get confirmed(): boolean;
+
+    get can_send(): boolean;
+}
+
+export class Google {
+    get title(): string;
+
+    get value(): string;
+}
+
+export class Telegram {
+    get title(): string;
+
+    get value(): Object;
+
+    get url(): Object;
+
+    get name(): string;
+}
+
+export class Discord {
+    get title(): string;
+
+    get value(): string;
+
+    get email(): string;
+}
 
 //Utils
 export class ApiRequest {
