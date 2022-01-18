@@ -23,6 +23,8 @@ export class Client {
 
     socials(): Promise<SocialsResponse>;
 
+    tickets(status?:"closed"|null, page?:number): Promise<TicketsResponse>;
+
     static getTokenViaPasswordAuth(login: String, password: String): Promise<GetTokenResponse>;
 }
 
@@ -194,6 +196,14 @@ export class ExpResponse {
     get referrer(): Object;
 
     get awards(): Award;
+}
+
+export class TicketsResponse {
+    get tickets(): [Ticket];
+
+    get totalPageCount(): number;
+
+    get perPage(): number;
 }
 
 //API classes
@@ -835,6 +845,18 @@ export class Discord {
     get value(): string;
 
     get email(): string;
+}
+
+export class Ticket {
+    get id(): number;
+
+    get topic(): string;
+
+    get subject(): string;
+
+    get status(): string;
+
+    get date(): string;
 }
 
 //Utils

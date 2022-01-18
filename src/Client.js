@@ -10,6 +10,7 @@ const InvitedUser = require("./Structures/InvitedUser");
 const WarningsResponse = require("./responses/WarningsResponse");
 const ExpResponse = require("./responses/ExpResponse");
 const SocialsResponse = require("./responses/SocialsResponse");
+const TicketsResponse = require("./responses/TicketsResponse");
 
 class Client {
     _token = null;
@@ -68,6 +69,13 @@ class Client {
     async socials() {
         let response = await ApiRequest.requestMainGET("user/social_accounts", {},{token: this._token});
         return ResponseParser.parse(SocialsResponse.prototype,response);
+    }
+
+    async tickets(status = null, page = 1) {
+        let params = {page};
+        if(status!=null) params.status = status;
+        let response = await ApiRequest.requestMainGET("support/tickets", params,{token: this._token});
+        return ResponseParser.parse(TicketsResponse.prototype,response);
     }
 
     static async getTokenViaPasswordAuth(username, password) {
