@@ -23,7 +23,9 @@ export class Client {
 
     socials(): Promise<SocialsResponse>;
 
-    tickets(status?:"closed"|null, page?:number): Promise<TicketsResponse>;
+    tickets(status?: "closed" | null, page?: number): Promise<TicketsResponse>;
+
+    online(): Promise<[MonitoringServer]>;
 
     static getTokenViaPasswordAuth(login: String, password: String): Promise<GetTokenResponse>;
 }
@@ -857,6 +859,24 @@ export class Ticket {
     get status(): string;
 
     get date(): string;
+}
+
+export class MonitoringServer {
+    get title(): string;
+
+    get players(): number;
+
+    get players_list(): [PlayersList];
+
+    get slots(): number;
+
+    get game_version(): string;
+
+    get custom_status(): string;
+}
+
+export class PlayersList {
+    get username(): string;
 }
 
 //Utils

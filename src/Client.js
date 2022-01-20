@@ -11,6 +11,7 @@ const WarningsResponse = require("./responses/WarningsResponse");
 const ExpResponse = require("./responses/ExpResponse");
 const SocialsResponse = require("./responses/SocialsResponse");
 const TicketsResponse = require("./responses/TicketsResponse");
+const MonitoringServer = require("./Structures/MonitoringServer");
 
 class Client {
     _token = null;
@@ -76,6 +77,11 @@ class Client {
         if(status!=null) params.status = status;
         let response = await ApiRequest.requestMainGET("support/tickets", params,{token: this._token});
         return ResponseParser.parse(TicketsResponse.prototype,response);
+    }
+
+    async online() {
+        let response = await ApiRequest.requestMainGET("monitoring/players", {},{token: this._token});
+        return ResponseParser.parse([MonitoringServer.prototype],response);
     }
 
     static async getTokenViaPasswordAuth(username, password) {
