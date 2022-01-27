@@ -1,10 +1,11 @@
 const Axios = require("axios");
 
 class ApiRequest {
-    static requestGET(method, params = {}, options = {v:"v2",token:undefined}) {
+    static requestGET(method, params = {}, options = {v:"v2",token:""}) {
         if(options.v === undefined) options.v = "v2";
+        if(options.token === undefined) options.token = "";
         return new Promise((resolve, reject) => {
-            Axios.get("https://api.hil.su/"+options.v+"/"+method + (options.token?"?accessToken="+options.token:""),{params})
+            Axios.get("https://api.hil.su/"+options.v+"/"+method + (options.token.length?"?accessToken="+options.token:""),{params})
                 .catch((err) => {
                     if(err.response) {
                         if(err.response.data) {
@@ -23,7 +24,7 @@ class ApiRequest {
                     }
                     if(response.status >=300) {
                         reject(response);
-                        return
+                        return;
                     }
                     if(!response.data.success) {
                         reject(response);
@@ -33,8 +34,9 @@ class ApiRequest {
         });
     }
 
-    static requestMainGET(method, params = {}, options = {v:"v0",token:undefined}) {
+    static requestMainGET(method, params = {}, options = {v:"v0",token:""}) {
         if(options.v === undefined) options.v = "v0";
+        if(options.token === undefined) options.token = "";
         return new Promise((resolve, reject) => {
             Axios.get("https://hil.su/api/"+options.v+"/"+method,{params,headers:{authorization:"Bearer "+options.token}})
                 .catch((err) => {
@@ -65,10 +67,12 @@ class ApiRequest {
         });
     }
 
-    static requestMainPOST(method, params = {}, body = "", options = {v:"v0",token:undefined}) {
+    static requestMainPOST(method, params = {}, body = "", options = {v:"v0",token:""}) {
         if(options.v === undefined) options.v = "v0";
+        if(options.token === undefined) options.token = "";
+
         return new Promise((resolve, reject) => {
-            Axios.post("https://hil.su/api/"+options.v+"/"+method,body,{params,headers:{authorization:"Bearer "+options.token,'Content-Type': 'application/json'}})
+            Axios.post("https://hil.su/api/"+options.v+"/"+method,body,{params,headers:{authorization:"Bearer "+options.token,"Content-Type": "application/json"}})
                 .catch((err) => {
                     if(err.response) {
                         if(err.response.data) {
@@ -97,10 +101,11 @@ class ApiRequest {
         });
     }
 
-    static requestPOST(method, params = {}, body = "", options = {v:"v2",token:undefined}) {
+    static requestPOST(method, params = {}, body = "", options = {v:"v2",token:""}) {
         if(options.v === undefined) options.v = "v2";
+        if(options.token === undefined) options.token = "";
         return new Promise((resolve, reject) => {
-            Axios.post("https://api.hil.su/"+options.v+"/"+method + (options.token?"?accessToken="+options.token:""),body,{params})
+            Axios.post("https://api.hil.su/"+options.v+"/"+method + (options.token.length?"?accessToken="+options.token:""),body,{params})
                 .catch((err) => {
                     if(err.response) {
                         if(err.response.data) {
