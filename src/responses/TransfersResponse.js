@@ -3,17 +3,7 @@ const Transfer = require("../Structures/Transfer");
 class TransfersResponse {
     _userId;
     _username;
-    _transfers;
-
-    constructor(data) {
-        this._userId = data.userId;
-        this._username = data.username;
-        let transfers = [];
-        for (let transfer of data.transfers) {
-            transfers.push(new Transfer(transfer));
-        }
-        this._changes = transfers;
-    }
+    _transfers = [Transfer.prototype];
 
     get userId() {
         return this._userId;

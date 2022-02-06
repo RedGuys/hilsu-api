@@ -6,15 +6,6 @@ class TransferResponse {
     _targetName;
     _balance;
 
-    constructor(data) {
-        this._currency = data.currency;
-        this._senderId = data.senderId;
-        this._senderName = data.senderName;
-        this._targetId = data.targetId;
-        this._targetName = data.targetName;
-        this._balance = data.balance;
-    }
-
     get currency() {
         return this._currency;
     }

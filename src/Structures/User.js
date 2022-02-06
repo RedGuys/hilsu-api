@@ -4,12 +4,6 @@ class User {
     _uuid;
     _username;
 
-    constructor(data) {
-        this._id = data.id;
-        this._uuid = data.uuid;
-        this._username = data.username;
-    }
-
     get id() {
         return this._id;
     }

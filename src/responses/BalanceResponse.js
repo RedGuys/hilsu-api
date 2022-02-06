@@ -2,20 +2,15 @@ const User = require("../Structures/User");
 const Balance = require("../Structures/UserBalances");
 
 class BalanceResponse {
-    _user;
-    _balance;
-
-    constructor(data) {
-        this._user = new User(data.user);
-        this._balance = new Balance(data.balances);
-    }
+    _user = User.prototype;
+    _balances = Balance.prototype;
 
     get user() {
         return this._user;
     }
 
-    get balance() {
-        return this._balance;
+    get balances() {
+        return this._balances;
     }
 }
 

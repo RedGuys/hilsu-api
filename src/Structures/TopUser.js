@@ -3,14 +3,8 @@ const User = require("./User");
 class TopUser {
 
     _num;
-    _user;
+    _user = User.prototype;
     _balance;
-
-    constructor(data) {
-        this._num = data.num;
-        this._user = new User(data.user);
-        this._balance = data.balance;
-    }
 
     get num() {
         return this._num;

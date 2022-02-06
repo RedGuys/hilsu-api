@@ -224,7 +224,7 @@ export class Economy {
 
     top(currency?: "coins" | "gems", limit?: number): Promise<TopResponse>;
 
-    transfer(target: string, amount: number, description?: string, currency?: "coins" | "gems"): Promise<TransferResponse>;
+    transfer(target: string, amount: number, currency?: "coins" | "gems", description?: string): Promise<TransferResponse>;
 }
 
 export class Auction {

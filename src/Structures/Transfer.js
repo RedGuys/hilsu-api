@@ -7,15 +7,6 @@ class Transfer {
     _comment;
     _time;
 
-    constructor(data) {
-        this._id = data.id;
-        this._peerId = data.peerId;
-        this._peerName = data.peerName;
-        this._delta = data.delta;
-        this._comment = data.comment;
-        this._time = new Date(data.time*1000);
-    }
-
     get id() {
         return this._id;
     }
@@ -37,7 +28,7 @@ class Transfer {
     }
 
     get time() {
-        return this._time;
+        return new Date(this._time*1000);
     }
 }
 

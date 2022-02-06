@@ -5,15 +5,8 @@ class Change {
     _description;
     _delta;
 
-    constructor(data) {
-        this._date = new Date(Date.parse(data.date));
-        this._source = data.source;
-        this._description = data.description;
-        this._delta = data.delta;
-    }
-
     get date() {
-        return this._date;
+        return new Date(Date.parse(this._date));
     }
 
     get source() {
