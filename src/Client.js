@@ -24,6 +24,7 @@ class Client {
     get baseUrl() {
         return this._baseUrl;
     }
+
     set baseUrl(value) {
         this._baseUrl = value;
     }
@@ -45,47 +46,51 @@ class Client {
     }
 
     async userInfo() {
-        let response = await ApiRequest.requestMainGET("user/info/index", {},{token: this._token});
-        return ResponseParser.parse(UserInfoResponse.prototype,response);
+        let response = await ApiRequest.requestMainGET("user/info/index", {}, {token: this._token});
+        return ResponseParser.parse(UserInfoResponse.prototype, response);
     }
 
     async invitedUsers() {
-        let invitedUsers = [];
-        for (let user of await ApiRequest.requestMainGET("user/invited", {}, {token: this._token})) {
-            invitedUsers.push(ResponseParser.parse(InvitedUser.prototype,user));
-        }
-        return invitedUsers;
+        let res = await ApiRequest.requestMainGET("user/invited", {}, {token: this._token});
+        return ResponseParser.parse([InvitedUser.prototype], res);
     }
 
     async warnings() {
-        let response = await ApiRequest.requestMainGET("user/warnings", {},{token: this._token});
-        return ResponseParser.parse(WarningsResponse.prototype,response);
+        let response = await ApiRequest.requestMainGET("user/warnings", {}, {token: this._token});
+        return ResponseParser.parse(WarningsResponse.prototype, response);
     }
 
     async exp() {
-        let response = await ApiRequest.requestMainGET("user/exp", {},{token: this._token});
-        return ResponseParser.parse(ExpResponse.prototype,response);
+        let response = await ApiRequest.requestMainGET("user/exp", {}, {token: this._token});
+        return ResponseParser.parse(ExpResponse.prototype, response);
     }
 
     async socials() {
-        let response = await ApiRequest.requestMainGET("user/social_accounts", {},{token: this._token});
-        return ResponseParser.parse(SocialsResponse.prototype,response);
+        let response = await ApiRequest.requestMainGET("user/social_accounts", {}, {token: this._token});
+        return ResponseParser.parse(SocialsResponse.prototype, response);
     }
 
     async tickets(status = null, page = 1) {
         let params = {page};
-        if(status!=null) params.status = status;
-        let response = await ApiRequest.requestMainGET("support/tickets", params,{token: this._token});
-        return ResponseParser.parse(TicketsResponse.prototype,response);
+        if (status != null) params.status = status;
+        let response = await ApiRequest.requestMainGET("support/tickets", params, {token: this._token});
+        return ResponseParser.parse(TicketsResponse.prototype, response);
     }
 
     async online() {
-        let response = await ApiRequest.requestMainGET("monitoring/players", {},{token: this._token});
-        return ResponseParser.parse([MonitoringServer.prototype],response);
+        let response = await ApiRequest.requestMainGET("monitoring/players", {}, {token: this._token});
+        return ResponseParser.parse([MonitoringServer.prototype], response);
     }
 
     static async getTokenViaPasswordAuth(username, password) {
-        return new GetTokenResponse(await ApiRequest.requestPOST("auth/account/login/password", {}, JSON.stringify({username, password})));
+        return ResponseParser.parse(
+            GetTokenResponse.prototype,
+            await ApiRequest.requestPOST("auth/account/login/password", {}, JSON.stringify({
+                    username,
+                    password
+                })
+            )
+        );
     }
 }
 
