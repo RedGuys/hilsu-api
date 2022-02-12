@@ -2,7 +2,6 @@ const ChatAttachmentType = require("./ChatAttachmentType");
 const ChatSticker = require("./ChatSticker");
 const ChatAttachmentMeta = require("./ChatAttachmentMeta");
 const Axios = require("axios");
-const Path = require("path");
 const Fs = require("fs");
 
 class ChatAttachment {
