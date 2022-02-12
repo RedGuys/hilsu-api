@@ -21,7 +21,7 @@ class ChatUser {
         this._id = data.id;
         this._uuid = data.uuid;
         this._username = data.username;
-        this._rank = new Rank(data.rank);
+        this._rank = data.rank !== undefined ? new Rank(data.rank):undefined;
         this._isMe = data.isMe;
         this._external = data.external !== undefined ? new ChatExternalUser(data.external):undefined;
         this._firstName = data.firstName;

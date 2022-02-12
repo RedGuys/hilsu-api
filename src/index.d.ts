@@ -322,7 +322,7 @@ export class ChatMessage {
 
     get replyTo(): number | undefined;
 
-    get replyToMessage(): ChatUser | undefined;
+    get replyToMessage(): ChatMessage | undefined;
 
     get text(): string;
 
@@ -336,7 +336,7 @@ export class ChatMessage {
 
     get isDeleted(): boolean | undefined;
 
-    reply(text: string, options: { acknowledgement?: string });
+    reply(text: string, options?: { acknowledgement?: string });
 }
 
 declare class ChatAttachment {
