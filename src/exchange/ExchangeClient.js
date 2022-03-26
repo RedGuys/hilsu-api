@@ -77,14 +77,16 @@ class ExchangeClient extends EventEmitter {
             }
             case "pool": {
                 let pool = new Pool(obj.value);
+                let old = self._pool;
                 self._pool = pool;
-                self.emit("poolUpdate",pool);
+                self.emit("poolUpdate",pool,old);
                 break;
             }
             case "rates": {
                 let rates = new Rates(obj.value);
+                let old = self._rates;
                 self._rates = rates;
-                self.emit("ratesUpdate",rates);
+                self.emit("ratesUpdate",rates,old);
                 break;
             }
             case "history": {

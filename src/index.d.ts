@@ -56,8 +56,8 @@ export class ExchangeClient {
     get history(): ExchangeHistory;
 
     on(event: "settingsUpdate", listener: (settings: ExchangeSettings) => void);
-    on(event: "poolUpdate", listener: (pool: ExchangePool) => void);
-    on(event: "ratesUpdate", listener: (rates: ExchangeRates) => void);
+    on(event: "poolUpdate", listener: (pool: ExchangePool, oldPool?: ExchangePool) => void);
+    on(event: "ratesUpdate", listener: (rates: ExchangeRates, oldRates?: ExchangeRates) => void);
     on(event: "historyUpdate", listener: (rates: ExchangeHistory) => void);
     on(event: "ping", listener: () => void);
     on(event: "successChange", listener: (change: ExchangeChange) => void);
