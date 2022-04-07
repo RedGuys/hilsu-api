@@ -41,7 +41,7 @@ export class ChatClient {
 }
 
 export class ExchangeClient {
-    constructor(token: string);
+    constructor(token: string, options: ExchangeOptions);
 
     connect(): Promise<void>;
 
@@ -61,6 +61,19 @@ export class ExchangeClient {
     on(event: "historyUpdate", listener: (rates: ExchangeHistory) => void);
     on(event: "ping", listener: () => void);
     on(event: "successChange", listener: (change: ExchangeChange) => void);
+    on(event: "disconnect", listener: (event: {
+        wasClean: boolean;
+        code: number;
+        reason: string;
+        error: any;
+        message: any;
+        type: string;
+        target: WebSocket;
+    }) => void);
+}
+
+export interface ExchangeOptions {
+    inf_reconnect?: boolean
 }
 
 //Responses

@@ -11,14 +11,17 @@ class ExchangeClient extends EventEmitter {
 
     _token;
     _ws = WebSocket.prototype;
+    _options = {inf_reconnect:true}
 
     _settings;
     _pool;
     _rates;
     _history;
 
-    constructor(token) {
+    constructor(token, options = {}) {
         super();
+        if(!options.inf_reconnect) options.inf_reconnect = true;
+        this._options = options;
         this._token = token;
     }
 
@@ -26,23 +29,16 @@ class ExchangeClient extends EventEmitter {
         let resp = await ApiRequest.requestMainGET("exchange/ws",{},{token:this._token});
         return new Promise((res, rej) => {
             let self = this;
-            function r() {
-                self.reconnect();
-            }
             this._ws = new WebSocket(resp);
             this._ws.on("message",(data) => {this._workMessage(self,data)});
             this._ws.on("open", () => {
                 this._ws.removeListener("error", onError);
                 this._ws.removeListener("close", onError);
-                this._ws.addEventListener("error", r);
-                this._ws.addEventListener("close", r);
                 res();
             });
             function onError() {
                 rej();
             }
-            this._ws.removeListener("error", r);
-            this._ws.removeListener("close", r);
             this._ws.addEventListener("error", onError);
             this._ws.addEventListener("close", onError);
         });
@@ -50,7 +46,27 @@ class ExchangeClient extends EventEmitter {
 
     async reconnect() {
         this._ws.close();
-        await this.connect();
+        let resp = await ApiRequest.requestMainGET("exchange/ws",{},{token:this._token});
+        return new Promise((res, rej) => {
+            let self = this;
+            this._ws = new WebSocket(resp);
+            this._ws.on("message",(data) => {this._workMessage(self,data)});
+            this._ws.on("open", () => {
+                this._ws.removeListener("error", onError);
+                this._ws.removeListener("close", onError);
+                res();
+            });
+            async function onError(e) {
+                self.emit("disconnected", e);
+                if (self._options.inf_reconnect) {
+                    await self.reconnect();
+                } else {
+                    rej();
+                }
+            }
+            this._ws.addEventListener("error", onError);
+            this._ws.addEventListener("close", onError);
+        });
     }
 
     change(from, to, amount) {
