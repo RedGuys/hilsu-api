@@ -26,19 +26,31 @@ class ExchangeClient extends EventEmitter {
         let resp = await ApiRequest.requestMainGET("exchange/ws",{},{token:this._token});
         return new Promise((res, rej) => {
             let self = this;
+            function r() {
+                self.reconnect();
+            }
             this._ws = new WebSocket(resp);
             this._ws.on("message",(data) => {this._workMessage(self,data)});
             this._ws.on("open", () => {
                 this._ws.removeListener("error", onError);
                 this._ws.removeListener("close", onError);
+                this._ws.addEventListener("error", r);
+                this._ws.addEventListener("close", r);
                 res();
             });
             function onError() {
                 rej();
             }
+            this._ws.removeListener("error", r);
+            this._ws.removeListener("close", r);
             this._ws.addEventListener("error", onError);
             this._ws.addEventListener("close", onError);
         });
+    }
+
+    async reconnect() {
+        this._ws.close();
+        await this.connect();
     }
 
     change(from, to, amount) {
