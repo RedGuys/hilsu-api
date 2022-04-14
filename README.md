@@ -30,7 +30,7 @@ let client = new HilSuApi.Client("token");
 let economy = client.economy;
 ```
 ### Получение баланса
-```typescript
+```js
 economy.balance(): Promise<{user:ChatUser,balances:UserBalances}>;
 ```
 ```js
@@ -39,7 +39,7 @@ client.economy.balance().then(data =>{
 }).catch(err => console.log(err));
 ```
 ### Список изменений баланса
-```typescript
+```js
 economy.changes(currency?: "coins"|"gems",limit?: number, offset?: number): Promise<{userId: string, username: string, changes: Change[]}>;
 ```
 ```js
@@ -49,7 +49,7 @@ client.economy.changes("coins",5,0).then(data =>{
 ```
 
 ### Список переводов
-```typescript
+```js
 economy.transfers(currency?: "coins",limit?: number, offset?: number): Promise<{userId: string, username: string, transfers: Transfer[]}>;
 ```
 ```js
@@ -59,7 +59,7 @@ client.economy.transfers("coins",5,0).then(data =>{
 ```
 
 ### Количество переводов
-```typescript
+```js
 economy.transfersCount(currency?: "coins"): Promise<{userId: string, username: string, count: number}>;
 ```
 ```js
@@ -69,7 +69,7 @@ client.economy.transfersCount("coins").then(data =>{
 ```
 
 ### Количество изменений баланса
-```typescript
+```js
 economy.changesCount(currency?: "coins"|"gems"): Promise<{userId: string, username: string, count: number}>;
 ```
 ```js
@@ -79,7 +79,7 @@ client.economy.changesCount("gems").then(data =>{
 ```
 
 ### Топ по балансам
-```typescript
+```js
 economy.top(currency?: "coins"|"gems", limit?: number): Promise<{users: TopUser[]}>;
 ```
 ```js
@@ -89,7 +89,7 @@ client.economy.top("gems",1).then(data =>{
 ```
 
 ### Перевод средств
-```typescript
+```js
 economy.transfer(target: string, amount: number, description?: string, currency?: "coins"|"gems"): Promise<{currency: string, senderId: string, senderName: string, targetId: string, targetName: string, balance: number}>;
 ```
 ```js
@@ -99,7 +99,7 @@ client.economy.transfer("MailGik",1,"What the fox say?","gems").then(data =>{
 ```
 
 ## Информация о пользователе
-```typescript
+```js
 userInfo(): Promise<UserInfoResponse>;
 ```
 ```js
@@ -108,5 +108,5 @@ client.userInfo().then(data => {
     for (let notification of data.notifications.notifications) {
         console.log(notification.text)
     }
-}).catch(err => console.log(err);
+}).catch(err => console.log(err));
 ```
