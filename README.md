@@ -11,6 +11,8 @@
     - [Количество изменений баланса](#Количество-изменений-баланса)
     - [Топ по балансам](#Топ-по-балансам)
     - [Перевод средств](#Перевод-средств)
+    
+- [Информация о пользователе](#Информация-о-пользователе)
 
 ## Авторизация
 Для начала, вам нужно получить токен, через который вы будете работать, самый простой способ:
@@ -28,7 +30,7 @@ let client = new HilSuApi.Client("token");
 let economy = client.economy;
 ```
 ### Получение баланса
-```js
+```typescript
 economy.balance(): Promise<{user:ChatUser,balances:UserBalances}>;
 ```
 ```js
@@ -37,7 +39,7 @@ client.economy.balance().then(data =>{
 }).catch(err => console.log(err));
 ```
 ### Список изменений баланса
-```js
+```typescript
 economy.changes(currency?: "coins"|"gems",limit?: number, offset?: number): Promise<{userId: string, username: string, changes: Change[]}>;
 ```
 ```js
@@ -47,7 +49,7 @@ client.economy.changes("coins",5,0).then(data =>{
 ```
 
 ### Список переводов
-```js
+```typescript
 economy.transfers(currency?: "coins",limit?: number, offset?: number): Promise<{userId: string, username: string, transfers: Transfer[]}>;
 ```
 ```js
@@ -57,7 +59,7 @@ client.economy.transfers("coins",5,0).then(data =>{
 ```
 
 ### Количество переводов
-```js
+```typescript
 economy.transfersCount(currency?: "coins"): Promise<{userId: string, username: string, count: number}>;
 ```
 ```js
@@ -67,7 +69,7 @@ client.economy.transfersCount("coins").then(data =>{
 ```
 
 ### Количество изменений баланса
-```js
+```typescript
 economy.changesCount(currency?: "coins"|"gems"): Promise<{userId: string, username: string, count: number}>;
 ```
 ```js
@@ -77,7 +79,7 @@ client.economy.changesCount("gems").then(data =>{
 ```
 
 ### Топ по балансам
-```js
+```typescript
 economy.top(currency?: "coins"|"gems", limit?: number): Promise<{users: TopUser[]}>;
 ```
 ```js
@@ -87,11 +89,24 @@ client.economy.top("gems",1).then(data =>{
 ```
 
 ### Перевод средств
-```js
+```typescript
 economy.transfer(target: string, amount: number, description?: string, currency?: "coins"|"gems"): Promise<{currency: string, senderId: string, senderName: string, targetId: string, targetName: string, balance: number}>;
 ```
 ```js
 client.economy.transfer("MailGik",1,"What the fox say?","gems").then(data =>{
     console.log(data.senderName + " send to " + data.targetName + " 1 " + data.currency + " and have now " + data.balance + " " + data.currency);
 }).catch(err => console.log(err));
+```
+
+## Информация о пользователе
+```typescript
+userInfo(): Promise<UserInfoResponse>;
+```
+```js
+client.userInfo().then(data => {
+    console.log(`My name is ${data.first_name} and i have ${data.notifications.count} new notifications:`);
+    for (let notification of data.notifications.notifications) {
+        console.log(notification.text)
+    }
+}).catch(err => console.log(err);
 ```
