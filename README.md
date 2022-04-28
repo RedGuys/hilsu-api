@@ -1,4 +1,4 @@
-# hilsu-api
+# [hilsu-api](https://www.npmjs.com/package/hilsu-api)
 Библиотека для запросов к api.hil.su
 
 - [Авторизация](#Авторизация)
