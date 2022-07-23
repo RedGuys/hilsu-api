@@ -14,6 +14,8 @@
     
 - [Информация о пользователе](#Информация-о-пользователе)
 
+- [Онлайн](#Онлайн)
+
 ## Авторизация
 Для начала, вам нужно получить токен, через который вы будете работать, самый простой способ:
 ```js
@@ -109,4 +111,23 @@ client.userInfo().then(data => {
         console.log(notification.text)
     }
 }).catch(err => console.log(err));
+```
+
+
+## Онлайн
+```js
+online(): Promise<[MonitoringServer]>;
+```
+```js
+client.online().then(data => {
+    for (let server of data) {
+        console.log(`${server.title} (${server.players}/${server.slots})`);
+    }
+});
+```
+```text
+Sandbox (3/50)
+HiPower (2/50)
+HiTech (2/50)
+...
 ```
